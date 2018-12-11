@@ -1,58 +1,7 @@
 <?php
-
-interface Book
-{
-    public function getBookNames();
-    public function getType();
-}
-
-class SoJSwiftBooks
-{
-    public $type = 'Swift';
-    public $names = ['s-firstBook', 's-secondBook', 's-thirdBook', 's-fourthBook'];
-
-    public function getBookNames()
-    {
-        return $this->names;
-    }
-
-    public function getType()
-    {
-        return $this->type;
-    }
-}
-
-class SoJKotlinBooks
-{
-    public $type = 'Kotlin';
-    public $names = ['k-firstBook', 'k-secondBook', 'k-thirdBook', 'k-fourthBook'];
-
-    public function getBookNames()
-    {
-        return $this->names;
-    }
-
-    public function getType()
-    {
-        return $this->type;
-    }
-}
-
-class SoJPHPBooks
-{
-    public $type = 'PHP';
-    public $names = ['p-firstBook', 'p-secondBook', 'p-thirdBook', 'p-fourthBook'];
-
-    public function getBookNames()
-    {
-        return $this->names;
-    }
-
-    public function getType()
-    {
-        return $this->type;
-    }
-}
+require_once 'RayBooks.php'; //getBooks
+require_once 'JettBooks.php'; //getBookNames
+require_once 'SojBooks.php';
 
 class SoJLibrary
 {
@@ -71,6 +20,15 @@ class SoJLibrary
         $swift = new SoJSwiftBooks;
         $kotlin = new SoJKotlinBooks;
         $php = new SoJPHPBooks;
+
+        $swift_Jett = new JettSwiftBooks;
+        $kotlin_Jett = new JettKotlinBooks;
+        $php_Jett = new JettPHPBooks;
+
+        $swift_Ray = new RaySwift;
+        $kotlin_Ray = new RayKotlin;
+        $php_Ray = new RayPHP;
+
         $this->swiftBookNames = $swift->getBookNames();
         $this->swiftBookType = $swift->getType();
         $this->kotlinBookNames = $kotlin->getBookNames();
@@ -80,6 +38,7 @@ class SoJLibrary
         // var_dump($this->swiftBookType);
         array_push($this->bookTypes, $this->swiftBookType, $this->kotlinBookType, $this->phpBookType);
 
+        //database from SojBooks
         array_map(function ($book) {
             array_push($this->bookNames, $book);
         }, $this->swiftBookNames);
@@ -91,19 +50,49 @@ class SoJLibrary
         array_map(function ($book) {
             array_push($this->bookNames, $book);
         }, $this->phpBookNames);
+
+        //database from JettBooks
+        array_map(function ($book) {
+            array_push($this->bookNames, $book);
+        }, $swift_Jett->getBookNames());
+
+        array_map(function ($book) {
+            array_push($this->bookNames, $book);
+        }, $kotlin_Jett->getBookNames());
+
+        array_map(function ($book) {
+            array_push($this->bookNames, $book);
+        }, $php_Jett->getBookNames());
+
+        //database from RayBooks
+        array_map(function ($book) {
+            array_push($this->bookNames, $book);
+        }, $swift_Ray->getBooks());
+
+        array_map(function ($book) {
+            array_push($this->bookNames, $book);
+        }, $kotlin_Ray->getBooks());
+
+        array_map(function ($book) {
+            array_push($this->bookNames, $book);
+        }, $php_Ray->getBooks());
+
+        $this->swiftBookNames = array_merge($swift->getBookNames(), $swift_Jett->getBookNames(), $swift_Ray->getBooks());
+        $this->kotlinBookNames = array_merge($kotlin->getBookNames(), $kotlin_Jett->getBookNames(), $kotlin_Ray->getBooks());
+        $this->phpBookNames = array_merge($php->getBookNames(), $php_Jett->getBookNames(), $php_Ray->getBooks());
     }
 
     public function searchTool($filter, $keyword)
     {
         switch ($filter) {
             case 'Name':
-            	$result = [];
-            	foreach ($this->bookNames as $name) {
-            		if (strpos($name, $keyword) !== false) {
-            			array_push($result, $name);
+                $result = [];
+                foreach ($this->bookNames as $name) {
+                    if (strpos($name, $keyword) !== false) {
+                        array_push($result, $name);
                     }
-            	}
-            	print_r($result);
+                }
+                print_r($result);
 
                 break;
     
@@ -119,17 +108,17 @@ class SoJLibrary
                         print_r($this->phpBookNames);
                         break;
                     default:
-                    	echo 'The category is not exist.';
+                        echo 'The category is not exist.';
                 }
                 break;
 
             default:
-            	echo 'The title is not exist.';
-            	break;
+                echo 'The title is not exist.';
+                break;
         }
     }
 }
 
 $library = new SoJLibrary;
 //category: Swift, Kotlin, PHP
-$library->searchTool('Category', 'ir');
+$library->searchTool('Category', 'Swift');
