@@ -118,12 +118,18 @@ class SoJLibrary
                     case 'PHP':
                         print_r($this->phpBookNames);
                         break;
+                    default:
+                    	echo 'The category is not exist.';
                 }
                 break;
+
+            default:
+            	echo 'The title is not exist.';
+            	break;
         }
     }
 }
 
 $library = new SoJLibrary;
 //category: Swift, Kotlin, PHP
-$library->searchTool('Name', 'ir');
+$library->searchTool('Category', 'ir');
