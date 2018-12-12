@@ -1,4 +1,4 @@
-<?php 
+<?php
 interface Agency
 {
 	public function observe($category, $menu);
@@ -19,7 +19,7 @@ class Hospital implements Agency
 	public function receive()
 	{
 		// static::class 可以取得自己的 class 名稱
-		echo "Hospital recived today special $this->category $this->menu .</br>";
+		echo "Hospital received today special $this->category $this->menu .</br>";
 	}
 }
 
@@ -36,7 +36,7 @@ class FireStation implements Agency
 	
 	public function receive()
 	{
-		echo "FireStation recived today special $this->category $this->menu .</br>";
+		echo "FireStation received today special $this->category $this->menu .</br>";
 	}
 }
 
@@ -53,7 +53,7 @@ class School implements Agency
 	
 	public function receive()
 	{
-		echo "School recived today special $this->category $this->menu .</br>";
+		echo "School received today special $this->category $this->menu .</br>";
 	}
 }
 
@@ -70,7 +70,7 @@ class DonStudio implements Agency
 	
 	public function receive()
 	{
-		echo "DonStudio recived today special $this->category $this->menu .</br>";
+		echo "DonStudio received today special $this->category $this->menu .</br>";
 	}
 }
 
