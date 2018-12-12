@@ -6,13 +6,9 @@ require_once 'SojBooks.php';
 class SoJLibrary
 {
     public $swiftBookNames;
-    public $swiftBookType;
     public $kotlinBookNames;
-    public $kotlinBookType;
     public $phpBookNames;
-    public $phpBookType;
 
-    public $bookTypes = [];
     public $bookNames = [];
 
     public function __construct()
@@ -29,57 +25,11 @@ class SoJLibrary
         $kotlin_Ray = new RayKotlin;
         $php_Ray = new RayPHP;
 
-        $this->swiftBookNames = $swift->getBookNames();
-        $this->swiftBookType = $swift->getType();
-        $this->kotlinBookNames = $kotlin->getBookNames();
-        $this->kotlinBookType = $kotlin->getType();
-        $this->phpBookNames = $php->getBookNames();
-        $this->phpBookType = $php->getType();
-        // var_dump($this->swiftBookType);
-        array_push($this->bookTypes, $this->swiftBookType, $this->kotlinBookType, $this->phpBookType);
-
-        //database from SojBooks
-        array_map(function ($book) {
-            array_push($this->bookNames, $book);
-        }, $this->swiftBookNames);
-
-        array_map(function ($book) {
-            array_push($this->bookNames, $book);
-        }, $this->kotlinBookNames);
-
-        array_map(function ($book) {
-            array_push($this->bookNames, $book);
-        }, $this->phpBookNames);
-
-        //database from JettBooks
-        array_map(function ($book) {
-            array_push($this->bookNames, $book);
-        }, $swift_Jett->getBookNames());
-
-        array_map(function ($book) {
-            array_push($this->bookNames, $book);
-        }, $kotlin_Jett->getBookNames());
-
-        array_map(function ($book) {
-            array_push($this->bookNames, $book);
-        }, $php_Jett->getBookNames());
-
-        //database from RayBooks
-        array_map(function ($book) {
-            array_push($this->bookNames, $book);
-        }, $swift_Ray->getBooks());
-
-        array_map(function ($book) {
-            array_push($this->bookNames, $book);
-        }, $kotlin_Ray->getBooks());
-
-        array_map(function ($book) {
-            array_push($this->bookNames, $book);
-        }, $php_Ray->getBooks());
-
         $this->swiftBookNames = array_merge($swift->getBookNames(), $swift_Jett->getBookNames(), $swift_Ray->getBooks());
         $this->kotlinBookNames = array_merge($kotlin->getBookNames(), $kotlin_Jett->getBookNames(), $kotlin_Ray->getBooks());
         $this->phpBookNames = array_merge($php->getBookNames(), $php_Jett->getBookNames(), $php_Ray->getBooks());
+       
+        $this->bookNames = array_merge($this->swiftBookNames, $this->kotlinBookNames, $this->phpBookNames);
     }
 
     public function searchTool($filter, $keyword)
@@ -92,8 +42,12 @@ class SoJLibrary
                         array_push($result, $name);
                     }
                 }
-                print_r($result);
+                if (isset($result))
+                {
+	                print_r($result);
+                } else {
 
+                }
                 break;
     
             case 'Category':
@@ -121,4 +75,6 @@ class SoJLibrary
 
 $library = new SoJLibrary;
 //category: Swift, Kotlin, PHP
-$library->searchTool('Category', 'Swift');
+echo '<pre>';
+$library->searchTool('Name', 'swift');
+echo '</pre>';
