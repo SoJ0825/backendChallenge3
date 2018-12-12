@@ -6,8 +6,20 @@
 三個機構收到以後會大喊收到：
 例子：「Hospital received Today’s Special」
 
-Stage - 1
+
+## Round 1
+### Stage - 1
 只需要使用 function 來實現。
 
-Stage - 2
+### Stage - 2
 將所有機構都以 class 的方式呈現。
+
+## Round 2
+### Stage - 1 加強版
+- 準備 10 個產品，每次通知都是隨機的「今日特色」
+- 這 10 個商品需要 3 種分類。
+- 大喊的內容變為「Hospital received today’s special `Fruit` Banana」
+
+### Stage - 3
+- 今天 DonStudio 進駐了我們的城市，他也想要收到「今日特色」的消息。
+- 如何做到未來機構名單變動的情況下，也不用修改 class Bakery
